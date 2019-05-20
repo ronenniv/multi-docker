@@ -13,7 +13,6 @@ after_sccess:
   - docker build -t ronenniv/multi-nginx ./nginx
   - docker build -t ronenniv/multi-server ./server
   - docker build -t ronenniv/multi-worker ./worker
-
 #login to docker cli
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 #push images to docker hub

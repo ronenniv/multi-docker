@@ -8,7 +8,7 @@ before_install:
 script:
   - docker run ronenniv/react-test npm test -- --coverage
 
-after_sccess:
+after_success:
   - docker build -t ronenniv/multi-client ./client
   - docker build -t ronenniv/multi-nginx ./nginx
   - docker build -t ronenniv/multi-server ./server

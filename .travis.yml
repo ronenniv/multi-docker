@@ -1,0 +1,24 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t ronenniv/react-test -f ./cleint/Dockerfile.dev ./client
+
+script:
+  - docker run ronenniv/react-test npm test -- --coverage
+
+after_sccess:
+  - docker build -t ronenniv/multi-client ./client
+  - docker build -t ronenniv/multi-nginx ./nginx
+  - docker build -t ronenniv/multi-server ./server
+  - docker build -t ronenniv/multi-worker ./worker
+
+#login to docker cli
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+#push images to docker hub
+  - docker push ronenniv/multi-client
+  - docker push ronenniv/multi-nginx
+  - docker push ronenniv/multi-server
+  - docker push ronenniv/multi-worker
+
